@@ -5,10 +5,11 @@
 //  Created by Nathan on 7/28/25.
 //
 
-#include "linked_list.h"
-#include "args.h"
+#include "include/linked_list.h"
+#include "include/args.h"
 
 int main(int argc, const char * argv[]) {
+
     // Parse command line arguments
     Args_t* args = parse_args(argc, argv);
     

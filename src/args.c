@@ -5,7 +5,7 @@
 //  Created by Nathan on 7/28/25.
 //
 
-#include "args.h"
+#include "../include/args.h"
 
 void print_usage(const char* program_name) {
     printf("Usage: %s -f <filename> | --file <filename>\n", program_name);

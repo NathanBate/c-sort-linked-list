@@ -5,7 +5,7 @@
 //  Created by Nathan on 7/28/25.
 //
 
-#include "linked_list.h"
+#include "../include/linked_list.h"
 
 Node_t* create_node(const char* name) {
     Node_t* new_node = (Node_t*)malloc(sizeof(Node_t));
