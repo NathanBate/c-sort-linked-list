@@ -13,10 +13,27 @@ Node_t* create_node(const char* name) {
         perror("Failed to allocate memory");
         exit(EXIT_FAILURE);
     }
-    strncpy(new_node->name, name, MAX_NAME_LEN - 1);
-    new_node->name[MAX_NAME_LEN - 1] = '\0';
+
+    // Original code used strncpy to copy the name safely, but
+    // now we are using a more efficient method.
+
+    // strncpy(new_node->name, name, MAX_NAME_LEN - 1);
+    // new_node->name[MAX_NAME_LEN - 1] = '\0';
+    // new_node->next = NULL;
+    // return new_node;
+
+    // strdup is the new method to allocate and copy the string.
+    // It automatically handles the null-termination and memory allocation.
+    new_node->name = strdup(name);
+    if (!new_node->name) {
+        perror("Failed to allocate memory for name");
+        free(new_node);
+        exit(EXIT_FAILURE);
+    }
+    
     new_node->next = NULL;
     return new_node;
+
 }
 
 void append_node(Node_t** head, const char* name) {
@@ -42,6 +59,7 @@ void free_list(Node_t* head) {
     while (head) {
         Node_t* temp = head;
         head = head->next;
+        free(temp->name); // don't forget to free the strdup'd string
         free(temp);
     }
 }
@@ -59,12 +77,22 @@ void sort_list(Node_t* head) {
 
         while (ptr->next != lptr) {
             if (strcmp(ptr->name, ptr->next->name) > 0) {
+
+                // Original code to swap names when using strncpy
+
                 // Swap names
-                char temp[MAX_NAME_LEN];
-                strncpy(temp, ptr->name, MAX_NAME_LEN);
-                strncpy(ptr->name, ptr->next->name, MAX_NAME_LEN);
-                strncpy(ptr->next->name, temp, MAX_NAME_LEN);
+                // char temp[MAX_NAME_LEN];
+                // strncpy(temp, ptr->name, MAX_NAME_LEN);
+                // strncpy(ptr->name, ptr->next->name, MAX_NAME_LEN);
+                // strncpy(ptr->next->name, temp, MAX_NAME_LEN);
+                // swapped = 1;
+
+                // Swap pointers instead of copying strings - since we are using strdup
+                char* temp = ptr->name;
+                ptr->name = ptr->next->name;
+                ptr->next->name = temp;
                 swapped = 1;
+
             }
             ptr = ptr->next;
         }
