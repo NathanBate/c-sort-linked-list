@@ -23,7 +23,11 @@ int main(int argc, const char * argv[]) {
         char buffer[MAX_NAME_LEN];
 
         while (fgets(buffer, sizeof(buffer), file)) {
+
+            // Remove newline character if present
+            // strcspn works kind of like the indexOf method in JavaScript
             buffer[strcspn(buffer, "\n")] = '\0';  
+            
             append_node(&head, buffer);
         }
 

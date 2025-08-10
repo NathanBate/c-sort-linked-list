@@ -20,7 +20,7 @@ typedef struct Node_t {
 } Node_t;
 
 // Function declarations
-Node_t* create_node(const char* name);
+Node_t* create_node(const char* name, Node_t** head);
 void append_node(Node_t** head, const char* name);
 void print_list(const Node_t* head);
 void free_list(Node_t* head);

@@ -7,7 +7,7 @@
 
 #include "../include/linked_list.h"
 
-Node_t* create_node(const char* name) {
+Node_t* create_node(const char* name, Node_t** head) {
     Node_t* new_node = (Node_t*)malloc(sizeof(Node_t));
     if (!new_node) {
         perror("Failed to allocate memory");
@@ -37,7 +37,7 @@ Node_t* create_node(const char* name) {
 }
 
 void append_node(Node_t** head, const char* name) {
-    Node_t* new_node = create_node(name);
+    Node_t* new_node = create_node(name, &*head);
     if (*head == NULL) {
         *head = new_node;
     } else {
